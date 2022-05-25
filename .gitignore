@@ -1,9 +1,7 @@
-dist
-
 # Node / Bower
+.vscode
 node_modules/
 bower_components/
-
 # Plugins
 plugins/**/*.html
 plugins/**/*.less

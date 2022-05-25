@@ -1,3 +1,8 @@
+<?php
+  session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,11 +33,15 @@
 
 
 </head>
-<body class="hold-transition sidebar-collapse sidebar-mini">
+<body class="hold-transition sidebar-collapse sidebar-mini login-page">  <!-- Se agrega el login-page -->
 <!-- Site wrapper -->
-<div class="wrapper">
+<!-- aqui estaba  el wrapper antes del loggin -->
   <!-- Navbar -->
   <?php
+
+
+if(isset($_SESSION["iniciar"]) && $_SESSION["iniciar"] == "ok"){
+  echo '<div class="wrapper">'; //inicio div echo
   // HEADER
   include "src/view/modules/header.php";
 
@@ -51,7 +60,8 @@
           $_GET["ruta"] == "report"||
           $_GET["ruta"] == "log-out"){
             
-        include "src/view/modules/".$_GET["ruta"].".php";
+            include "src/view/modules/".$_GET["ruta"].".php";
+
     }else{
       include "src/view/modules/404.php";
     }
@@ -59,12 +69,14 @@
     include "src/view/modules/homepage.php";
   }
 
-
-  
-    //include "src/view/modules/homepage.php";
-  
   // FOOTER
   include "src/view/modules/footer.php";
+  
+  echo '</div>'; //fin del div echo
+
+}else{
+  include "src/view/modules/login.php";
+}
   ?>
 </div>
 <!-- ./wrapper -->
