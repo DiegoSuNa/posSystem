@@ -17,6 +17,7 @@
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
       <li class="nav-item">
+        
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
           <i class="fas fa-search"></i>
         </a>
@@ -37,6 +38,41 @@
         </div>
       </li>
     </ul>
+    <div class="navbar-custom-menu">
+				
+        <ul class="nav navbar-nav">
+          
+          <li class="dropdown user user-menu">
+            
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              
+              <img src="src/view/img/usuarios/default/anonymous.png" class="user-image">
+  
+              <span class="hidden-xs">Usuario Administrador</span>
+  
+            </a>
+  
+            <!-- Dropdown-toggle -->
+  
+            <ul class="dropdown-menu">
+              
+              <li class="user-body">
+                
+                <div class="pull-right">
+                  
+                  <a href="log-out" class="btn btn-danger">log out</a>
+  
+                </div>
+  
+              </li>
+  
+            </ul>
+  
+          </li>
+  
+        </ul>
+  
+      </div>
   </nav>
   <!-- /.navbar -->
 </header>
