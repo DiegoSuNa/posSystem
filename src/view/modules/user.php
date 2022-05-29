@@ -40,7 +40,7 @@
 
                <th>#</th>
                <th>nombre</th>
-               <th>usuario</th>
+               <th>usuario</th> 
                <th>foto</th>
                <th>perfil</th>
                <th>estado</th>
