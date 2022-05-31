@@ -29,9 +29,9 @@
          </button>
 
        </div>
-       <div class="card-body">
+       <div class="box-body">
 
-         <table class="table table-bordered table-striped">
+         <table class="table table-bordered table-striped admin">
 
            <thead>
 
