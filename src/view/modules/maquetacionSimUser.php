@@ -1,8 +1,3 @@
- <?php
- date_default_timezone_set('America/Bogota');
- $ultimo_login=date("Y-m-d H:i");
- ?>
- 
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
    <!-- Content Header (Page header) -->
@@ -43,9 +38,9 @@
 
              <tr>
 
-               <th style="width:10px;">#</th>
+                <th style="width:10px;">#</th>
                <th>nombre</th>
-               <th>usuario</th>
+               <th>usuario</th> 
                <th>foto</th>
                <th>perfil</th>
                <th>estado</th>
@@ -103,6 +98,7 @@
        <form role="form" method="post" enctype="multipart/form-data">
 
          <div class="modal-header" style="background: #FFC300; color: black">
+
            <h5 class="modal-title" id="modalAgregarUsuario">Agregar Usuario</h5>
            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">&times;</span>
@@ -182,36 +178,6 @@
              </div>
 
 
-             <!-- ESPACIO PARA INGRESAR EL USUARIO -->
-
-             <div class="form-group">
-
-               <div class="input-group-prepend">
-
-                 <span class="input-group-text"><i class="fas fa-star"></i></span>
-
-                 <select class="form-control input-lg" name="nuevoEstado">
-
-                   <option value="">Seleccionar</option>
-
-                   <option value="0">Activo</option>
-
-                   <option value="1">Inactivo</option>
-
-                 </select>
-
-               </div>
-
-             </div>
-
-             <!-- ESPACIO PARA INGRESAR EL LOGIN -->
-
-            <div class="form-group">
-
-            <label>Fecha:<br><input type="datetime" name="fecha" value="<?=$ultimo_login?>" disabled></label><br>
-
-            </div>
-
              <!-- ESPACIO PARA SUBIR FOTO -->
 
              <div class="form-group">
@@ -222,7 +188,7 @@
 
                <input type="file" id="nuevaFoto" name="nuevaFoto">
 
-               <p class="help-block"> PESO MAXIMO DE LA FOTO 200 MB</p>
+               <p class="help-block"> PESO MAXIMO DE LA FOTO 2MB</p>
 
                <img src="src/view/img/usuarios/default/anonymous.png" class="img-thumbnail" witdh="100px">
 
@@ -231,15 +197,9 @@
            </div>
 
          </div>
-
-         <!-- FIN DEL MODAL -->
          <div class="modal-footer">
            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
            <button type="submit" class="btn btn-primary">Save changes</button>
-           <?php
-            $crearUsuario = new ControladorUsuarios();
-            $crearUsuario->ctrCrearUsuario();
-            ?>
          </div>
 
        </form>

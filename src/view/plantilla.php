@@ -24,15 +24,18 @@
   <link rel="stylesheet" href="src/view/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="src/view/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="src/view/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-
+  <!-- Sweet -->
   <!------------------- PLUGINS DE JAVASCRIPT -------------------->
 
+    <!-- Sweetalert -->
+    <script src="src/view/plugins/sweetalert2/sweetalert2.all.min.js"></script>
   <!-- jQuery -->
   <script src="src/view/plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->
   <script src="src/view/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="src/view/dist/js/adminlte.min.js"></script>
+
   
 
   <!-- DataTables  & Plugins -->
@@ -48,6 +51,7 @@
 <script src="src/view/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
 
 
 
@@ -103,9 +107,9 @@
 }
 
 if(($_GET["ruta"] == "login")){
-  echo '<body class="hold-transition sidebar-collapse sidebar-mini login-page admin">';
+  echo '<body class="hold-transition sidebar-mini login-page">';
 }else{
-  echo '<body class="hold-transition sidebar-collapse sidebar-mini admin">';
+  echo '<body class="hold-transition sidebar-mini">';
 }
 
 
@@ -113,7 +117,10 @@ if(($_GET["ruta"] == "login")){
 </div>
 <!-- ./wrapper -->
 
-<script src="src/view/js/plantilla.js"> </script>
+
+<script src="src/view/js/plantilla.js"></script>
+
+
 
 </body>
 </html>
