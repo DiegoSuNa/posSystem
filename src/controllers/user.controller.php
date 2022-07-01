@@ -69,7 +69,9 @@ class ControladorUsuarios
 					"estado" => $_POST["nuevoEstado"]
 				);
 
-				$fecha = array ("ultimo_login" => $_POST["fecha"]);
+				//$fecha = array ("ultimo_login" => $_POST["fecha"]);
+				//$fecha = '2022-07-01 10:18:00';
+				$fecha = Date('Y-m-d H:i:s');
 
 
 				$respuesta = ModeloUsuarios::mdlIngresarUsuarios($tabla, $datos, $fecha);

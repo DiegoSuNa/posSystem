@@ -206,11 +206,11 @@
 
              <!-- ESPACIO PARA INGRESAR EL LOGIN -->
 
-            <div class="form-group">
+            <!-- <div class="form-group">
 
-            <label>Fecha:<br><input type="datetime" name="fecha" value="<?=$ultimo_login?>" disabled></label><br>
+            <label>Fecha:<br><input type="input" name="fecha" value="<?=$ultimo_login?>" disabled></label><br>
 
-            </div>
+            </div> -->
 
              <!-- ESPACIO PARA SUBIR FOTO -->
 
