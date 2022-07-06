@@ -17,6 +17,8 @@ class ControladorUsuarios
 				preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])
 			) {
 
+				$encriptar = crypt($_POST["ingPassword"], '$2a$07$usesomesillystringforsalt$');
+
 				$tabla = "usuarios";
 
 				$item = "usuario";
@@ -24,9 +26,14 @@ class ControladorUsuarios
 
 				$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
 
-				if ($respuesta["usuario"] == $_POST["ingUsuario"] && $respuesta["password"] == $_POST["ingPassword"]) {
+				if ($respuesta["usuario"] == $_POST["ingUsuario"] && $respuesta["password"] == $encriptar) {
 
 					$_SESSION["iniciar"] = "ok";
+					$_SESSION["id"] = $respuesta["id"];
+					$_SESSION["nombre"] = $respuesta["nombre"];
+					$_SESSION["usuario"] = $respuesta["usuario"];
+					$_SESSION["foto"] = $respuesta["foto"];
+					$_SESSION["perfil"] = $respuesta["perfil"];
 
 					echo '<script>
 
@@ -57,25 +64,86 @@ class ControladorUsuarios
 				preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoContraseña"])
 			) {
 
-				$tabla = "usuarios";
+				// VALIDAR IMAGEN
+
+				$ruta = ""; 
+
+				if(isset($_FILES["nuevaFoto"]["tmp_name"])){
 
 
+					list($ancho, $alto) = getimagesize($_FILES["nuevaFoto"]["tmp_name"]);
 
-				$datos = array(
-					"nombre" => $_POST["nuevoNombre"],
-					"usuario" => $_POST["nuevoUsuario"],
-					"password" => $_POST["nuevoContraseña"],
-					"perfil" => $_POST["nuevoPerfil"],
-					"estado" => $_POST["nuevoEstado"]
-				);
+					$nuevoAncho = 500;
+					$nuevoAlto = 500;
 
-				$fecha = array ("ultimo_login" => $_POST["fecha"]);
+					// CREAR DIRECTORIO
+
+					$directorio = "src/view/img/usuarios/".$_POST["nuevoUsuario"];
+
+					mkdir($directorio, 0775);
+
+					// TIPOS DE DATOS EN FUNCION DEL ARCHIVO CON PHP
+
+					if($_FILES["nuevaFoto"]["type"] == "image/jpeg"){
+
+						// GUARDAMOS IMAGEN EN EL DIRECTORIO
+
+						$aleatorio = mt_rand(100,999);
+
+						$ruta =  "src/view/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio.".jpg";
+
+						$origen = imagecreatefromjpeg($_FILES["nuevaFoto"]["tmp_name"]);
+
+						$destino = imagecreatetruecolor($nuevoAncho,$nuevoAlto);
+
+						imagecopyresized($destino,$origen,0,0,0,0,$nuevoAncho,$nuevoAlto,$ancho, $alto);
+
+						imagejpeg($destino, $ruta);
+					}  
+
+					if($_FILES["nuevaFoto"]["type"] == "image/png"){
+
+						// GUARDAMOS IMAGEN EN EL DIRECTORIO
+
+						$aleatorio = mt_rand(100,999);
+
+						$ruta =  "src/view/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio.".png";
+
+						$origen = imagecreatefrompng($_FILES["nuevaFoto"]["tmp_name"]);
+
+						$destino = imagecreatetruecolor($nuevoAncho,$nuevoAlto);
+
+						imagecopyresized($destino,$origen,0,0,0,0,$nuevoAncho,$nuevoAlto,$ancho, $alto);
+
+						imagepng($destino, $ruta);
+					}
+					
+
+					// var_dump(getimagesize($_FILES["nuevaFoto"]["tmp_name"]));
+				} 
+			}
+			$tabla = "usuarios";
+
+			$encriptar = crypt($_POST["nuevoContraseña"], '$2a$07$usesomesillystringforsalt$');
+
+			$datos = array(
+				"nombre" => $_POST["nuevoNombre"],
+				"usuario" => $_POST["nuevoUsuario"],
+				"password" => $encriptar,
+				"perfil" => $_POST["nuevoPerfil"],
+				"estado" => $_POST["nuevoEstado"],
+				"ruta" => $ruta
+			);
+
+			//$fecha = array ("ultimo_login" => $_POST["fecha"]);
+			//$fecha = '2022-07-01 10:18:00';
+			$fecha = Date('Y-m-d H:i:s');
 
 
-				$respuesta = ModeloUsuarios::mdlIngresarUsuarios($tabla, $datos, $fecha);
+			$respuesta = ModeloUsuarios::mdlIngresarUsuarios($tabla, $datos, $fecha);
 
-				if ($respuesta == "ok") {
-					echo "<script>
+			if ($respuesta == "ok") {
+				echo "<script>
 				Swal.fire(
 					'Atención!',
 					'El usuario a sido creado correctamente!',
@@ -86,9 +154,9 @@ class ControladorUsuarios
 					}
 				});
 				</script>";
-				}
-			} else {
-				echo "<script>
+		}
+		else {
+			echo "<script>
 				Swal.fire(
 					'Atención!',
 					'El usuario o contraseña no deben contener caracteres especiales!',
@@ -99,7 +167,19 @@ class ControladorUsuarios
 					}
 				});
 				</script>";
-			}
 		}
 	}
 }
+/*=============================================
+	MOSTRAR USUARIOS
+	=============================================*/
+
+	static public function ctrMostrarUsuarios($item, $valor){
+
+		$tabla = "usuarios";
+		$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
+
+		return $respuesta;
+	}
+
+} 

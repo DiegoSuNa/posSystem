@@ -1,4 +1,4 @@
- <?php
+<?php
  date_default_timezone_set('America/Bogota');
  $ultimo_login=date("Y-m-d H:i");
  ?>
@@ -54,26 +54,48 @@
              </tr>
            </thead>
            <tbody>
-             <tr>
-               <td>1</td>
-               <td>Usuario Administrador</td>
-               <td>admin</td>
-               <td><img src="src/view/img/usuarios/default/anonymous.png" class="img-thumbnail" witdh="40px"></td>
-               <td>Administrador</td>
-               <td><button type="button" class="btn btn-success btn-xs">Success</button></td>
-               <td>2012-20-12 20:24</td>
-               <td>
-                 <div class="btn-group">
-                   <button class="btn btn-info"> <i class="fa fa-pen"></i></button>
 
-                   <button class="btn btn-danger"> <i class="fa fa-times"></i></button>
+            <?php
 
-                 </div>
+            $item= null;
+            $valor=null;
 
-               </td>
+            $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item,$valor);
+
+            foreach ($usuarios as $key => $value) {
+              
+              echo ' <tr>
+              <td>'.$value["id"].'</td>
+              <td>'.$value["nombre"].'</td>
+              <td>'.$value["usuario"].'</td>';
+
+              if($value["foto"] != ""){
+                echo '<td><img src="'.$value["foto"].'" class="img-thumbnail" witdh="10px"></td>';
+              }else{
+                echo '<td><img src="src/view/img/usuarios/default/anonymous.png" class="img-thumbnail" witdh="10px"></td>';
+              }
+              
+              
+              echo '<td>'.$value["perfil"].'</td>
+              <td><button type="button" class="btn btn-success btn-xs">Success</button></td>
+              <td>'.$value["ultimo_login"].'</td>
+              <td>
+                <div class="btn-group">
+                  <button class="btn btn-info" data-toggle="modal" data-target="#editarModalUsuario"> <i class="fa fa-pen"></i></button>
+
+                  <button class="btn btn-danger"> <i class="fa fa-times"></i></button>
+
+                </div>
+
+              </td>
 
 
-             </tr>
+            </tr>';
+            }
+            
+            
+            ?>
+            
 
            </tbody>
          </table>
@@ -204,13 +226,6 @@
 
              </div>
 
-             <!-- ESPACIO PARA INGRESAR EL LOGIN -->
-
-            <div class="form-group">
-
-            <label>Fecha:<br><input type="datetime" name="fecha" value="<?=$ultimo_login?>" disabled></label><br>
-
-            </div>
 
              <!-- ESPACIO PARA SUBIR FOTO -->
 
@@ -220,11 +235,11 @@
                  SUBIR FOTO (OPCIONAL)
                </div>
 
-               <input type="file" id="nuevaFoto" name="nuevaFoto">
+               <input type="file" class="nuevaFoto" name="nuevaFoto">
 
-               <p class="help-block"> PESO MAXIMO DE LA FOTO 200 MB</p>
+               <p class="help-block"> PESO MAXIMO DE LA FOTO 2MB</p>
 
-               <img src="src/view/img/usuarios/default/anonymous.png" class="img-thumbnail" witdh="100px">
+               <img src="src/view/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar" witdh="100px">
 
              </div>
 

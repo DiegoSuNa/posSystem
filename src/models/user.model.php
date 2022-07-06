@@ -12,17 +12,28 @@ class ModeloUsuarios
 	static public function mdlMostrarUsuarios($tabla, $item, $valor)
 	{
 
-		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
+		if($item != null ){
 
-		$stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
 
-		$stmt->execute();
+			$stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
 
-		return $stmt->fetch();
+			$stmt->execute();
 
-		$stmt->closeCursor();
+			return $stmt->fetch();
+		}else{
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
 
-		$stmt = null;
+			$stmt->execute();
+
+			return $stmt->fetchAll();
+		}
+
+		
+
+		// $stmt->closeCursor();
+
+		// $stmt = null;
 	}
 
 	/*=============================================
@@ -32,15 +43,19 @@ class ModeloUsuarios
 	{
 		
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(nombre,usuario,password,perfil,estado,ultimo_login) VALUES (:nombre,
-		:usuario, :password, :perfil, :estado, :$fecha");
+		$fechaFormat = date("Y-m-d H:i:s", strtotime($fecha));
+		$fechaFormat;
+
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(nombre,usuario,password,perfil,estado,ultimo_login, foto) VALUES (:nombre,
+		:usuario, :password, :perfil, :estado, :ultimo_login, :foto)");
 
 		$stmt->bindParam("nombre", $datos["nombre"], PDO::PARAM_STR);
 		$stmt->bindParam("usuario", $datos["usuario"], PDO::PARAM_STR);
 		$stmt->bindParam("password", $datos["password"], PDO::PARAM_STR);
 		$stmt->bindParam("perfil", $datos["perfil"], PDO::PARAM_STR);
 		$stmt->bindParam("estado", $datos["estado"], PDO::PARAM_INT);
-		$stmt->bindParam("ultimo_login",$fecha["ultimo_login"], PDO::PARAM_INT);
+		$stmt->bindParam(":foto", $datos["ruta"], PDO::PARAM_STR);
+		$stmt->bindParam("ultimo_login",$fechaFormat, PDO::PARAM_STR);
 
 		if ($stmt->execute()) {
 
