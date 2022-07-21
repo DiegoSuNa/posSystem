@@ -81,7 +81,7 @@
               <td>'.$value["ultimo_login"].'</td>
               <td>
                 <div class="btn-group">
-                  <button class="btn btn-info" data-toggle="modal" data-target="#editarModalUsuario"> <i class="fa fa-pen"></i></button>
+                  <button class="btn btn-info btnEditarUsuario" idUsuario="'.$value["id"].'" data-toggle="modal" data-target="#editarModalUsuario"> <i class="fa fa-pen"></i></button>
 
                   <button class="btn btn-danger"> <i class="fa fa-times"></i></button>
 
@@ -114,7 +114,7 @@
  </div>
  <!-- /.content-wrapper -->
 
- <!-- VENTANA MODAL -->
+ <!-- CREAR USUARIO VENTANA MODAL -->
 
  <div class="modal fade" id="modalAgregarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
@@ -255,6 +255,157 @@
             $crearUsuario = new ControladorUsuarios();
             $crearUsuario->ctrCrearUsuario();
             ?>
+         </div>
+
+       </form>
+     </div>
+   </div>
+ </div>
+  <!-- EDITAR USUARIO VENTANA MODAL -->
+
+  <div class="modal fade" id="editarModalUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+
+
+     <div class="modal-content">
+
+       <form role="form" method="post" enctype="multipart/form-data">
+
+         <div class="modal-header" style="background: #FFC300; color: black">
+           <h5 class="modal-title" id="editarModalUsuario">Editar Usuario</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+
+
+
+         <div class="modal-body">
+
+           <div class="box-body">
+
+             <!-- ESPACIO PARA INGRESAR NOMBRE -->
+
+             <div class="form-group">
+
+               <div class="input-group-prepend">
+
+                 <span class="input-group-text"><i class="fas fa-user"></i></span>
+
+                 <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
+
+               </div>
+
+             </div>
+
+             <!-- ESPACIO PARA INGRESAR EL USUARIO -->
+
+             <div class="form-group">
+
+               <div class="input-group-prepend">
+
+                 <span class="input-group-text"><i class="fas fa-key"></i></span>
+
+                 <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" value="" readonly>
+
+               </div>
+
+             </div>
+
+             <!-- ESPACIO PARA INGRESAR EL CONTRASEÑA -->
+
+             <div class="form-group">
+
+               <div class="input-group-prepend">
+
+                 <span class="input-group-text"><i class="fas fa-lock"></i></span>
+
+                 <input type="password" class="form-control input-lg" name="editarContraseña" placeholder="Escribe una nueva contraseña">
+
+                 <input type="hidden" id="passwordActual" name="passwordActual">
+
+               </div>
+
+             </div>
+
+             <!-- ESPACIO PARA SELECCIONAR EL TIPO DE USUARIO -->
+
+             <div class="form-group">
+
+               <div class="input-group-prepend">
+
+                 <span class="input-group-text"><i class="fas fa-users"></i></span>
+
+                 <select class="form-control input-lg" name="editarPerfil">
+
+                   <option value="" id="editarPerfil"></option>
+
+                   <option value="Administrador">Administrador</option>
+
+                   <option value="Especial">Especial</option>
+
+                   <option value="Empleado">Empleado</option>
+
+                 </select>
+
+               </div>
+
+             </div>
+
+
+             <!-- ESPACIO PARA INGRESAR EL ESTADO -->
+
+             <div class="form-group">
+
+               <div class="input-group-prepend">
+
+                 <span class="input-group-text"><i class="fas fa-star"></i></span>
+
+                 <select class="form-control input-lg" name="editarEstado">
+
+                   <option value="" id="editarEstado">Seleccionar</option>
+
+                   <option value="0">Activo</option>
+
+                   <option value="1">Inactivo</option>
+
+                 </select>
+
+               </div>
+
+             </div>
+
+
+             <!-- ESPACIO PARA SUBIR FOTO -->
+
+             <div class="form-group">
+
+               <div class="panel">
+                 SUBIR FOTO (OPCIONAL)
+               </div>
+
+               <input type="file" class="nuevaFoto" name="editarFoto">
+
+               <p class="help-block"> PESO MAXIMO DE LA FOTO 2MB</p>
+
+               <img src="src/view/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar" witdh="100px">
+
+              <input type="hidden" id="fotoActual" name="fotoActual">
+
+             </div>
+
+           </div>
+
+         </div>
+
+         <!-- FIN DEL MODAL -->
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+           <button type="submit" class="btn btn-primary">Modificar Usuario</button>
+           <?php
+            $editarUsuario = new ControladorUsuarios();
+            $editarUsuario->ctrEditarUsuarios();
+            ?> 
          </div>
 
        </form>
