@@ -117,6 +117,9 @@ class ControladorUsuarios
 
 						imagepng($destino, $ruta);
 					}
+				//$fecha = array ("ultimo_login" => $_POST["fecha"]);
+				//$fecha = '2022-07-01 10:18:00';
+				$fecha = Date('Y-m-d H:i:s');
 
 
 					// var_dump(getimagesize($_FILES["nuevaFoto"]["tmp_name"]));
